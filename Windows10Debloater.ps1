@@ -78,7 +78,7 @@ Function DebloatBlacklist {
         "Microsoft.Office.Todo.List"
         "Microsoft.Whiteboard"
         "Microsoft.WindowsAlarms"
-        #"Microsoft.WindowsCamera"
+        "Microsoft.WindowsCamera"
         "microsoft.windowscommunicationsapps"
         "Microsoft.WindowsFeedbackHub"
         "Microsoft.WindowsMaps"
