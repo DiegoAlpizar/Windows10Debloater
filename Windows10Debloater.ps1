@@ -900,8 +900,8 @@ Switch ($Prompt1) {
             }
         }
         #Prompt asking if you'd like to reboot your machine
-        $Prompt0 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
-        Switch ($Prompt0) {
+        $Prompt7 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
+        Switch ($Prompt7) {
             Yes {
                 Write-Host "Unloading the HKCR drive..."
                 Remove-PSDrive HKCR 
@@ -939,8 +939,8 @@ Switch ($Prompt1) {
             }
         }
         #Prompt asking if you'd like to reboot your machine
-        $Prompt0 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
-        Switch ($Prompt0) {
+        $Prompt7 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
+        Switch ($Prompt7) {
             Yes {
                 Write-Host "Unloading the HKCR drive..."
                 Remove-PSDrive HKCR 
