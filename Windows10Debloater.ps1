@@ -794,9 +794,9 @@ Switch ($Prompt1) {
                 Remove-Keys
                 Write-Host "Leftover bloatware registry keys removed."
                 Start-Sleep 1
-                Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
-                Start-Sleep 1
-                FixWhitelistedApps
+                #Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
+                #Start-Sleep 1
+                #FixWhitelistedApps
                 Start-Sleep 1
                 Write-Host "Disabling Cortana from search, disabling feedback to Microsoft, and disabling scheduled tasks that are considered to be telemetry or unnecessary."
                 Protect-Privacy
@@ -831,9 +831,9 @@ Switch ($Prompt1) {
                 Remove-Keys
                 Write-Host "Leftover bloatware registry keys removed."
                 Start-Sleep 1
-                Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
-                Start-Sleep 1
-                FixWhitelistedApps
+                #Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
+                #Start-Sleep 1
+                #FixWhitelistedApps
                 Start-Sleep 1
                 Write-Host "Disabling Cortana from search, disabling feedback to Microsoft, and disabling scheduled tasks that are considered to be telemetry or unnecessary."
                 Protect-Privacy
