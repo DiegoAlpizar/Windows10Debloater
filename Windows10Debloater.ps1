@@ -774,8 +774,6 @@ $Reboot = "For some of the changes to properly take effect it is recommended to 
 $OneDriveDelete = "Do you want to uninstall One Drive?"
 $Unpin = "Do you want to unpin all items from the Start menu?"
 $InstallNET = "Do you want to install .NET 3.5?"
-$AeroShake = "Do you want to disable AeroShake?"
-$AeroShake2 = "Do you want to re-enable AeroShake?"
 $Prompt1 = [Windows.MessageBox]::Show($Ask, "Debloat or Revert", $Button, $ErrorIco) 
 Switch ($Prompt1) {
     #This will debloat Windows 10
