@@ -176,7 +176,7 @@ Function Protect-Privacy {
      Write-Output "Removing CloudStore from registry if it exists"
      $CloudStore = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore'
      If (Test-Path $CloudStore) {
-     Stop-Process -Name explorer -Force
+     Stop-Process Explorer.exe -Force
      Remove-Item $CloudStore -Recurse -Force
      Start-Process Explorer.exe -Wait
     }
@@ -240,8 +240,8 @@ Write-Output "Removing bloatware apps."
 Start-Debloat
 Write-Output "Removing leftover bloatware registry keys."
 Remove-Keys
-Write-Output "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
-FixWhitelistedApps
+#Write-Output "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
+#FixWhitelistedApps
 Write-Output "Stopping telemetry, disabling unneccessary scheduled tasks, and preventing bloatware from returning."
 Protect-Privacy
 #Write-Output "Stopping Edge from taking over as the default PDF Viewer."

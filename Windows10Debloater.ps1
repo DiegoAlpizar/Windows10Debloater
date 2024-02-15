@@ -39,12 +39,14 @@ Function DebloatAll {
     $WhitelistedApps = 'Microsoft.ScreenSketch|Microsoft.Paint3D|Microsoft.WindowsCalculator|Microsoft.WindowsStore|Microsoft.Windows.Photos|CanonicalGroupLimited.UbuntuonWindows|`
     Microsoft.XboxGameCallableUI|Microsoft.XboxGamingOverlay|Microsoft.Xbox.TCUI|Microsoft.XboxGamingOverlay|Microsoft.XboxIdentityProvider|Microsoft.MicrosoftStickyNotes|Microsoft.MSPaint|Microsoft.WindowsCamera|.NET|Framework|`
     Microsoft.HEIFImageExtension|Microsoft.ScreenSketch|Microsoft.StorePurchaseApp|Microsoft.VP9VideoExtensions|Microsoft.WebMediaExtensions|Microsoft.WebpImageExtension|Microsoft.DesktopAppInstaller|WindSynthBerry|MIDIBerry|Slack'
+    
     #NonRemovable Apps that where getting attempted and the system would reject the uninstall, speeds up debloat and prevents 'initalizing' overlay when removing apps
     $NonRemovable = '1527c705-839a-4832-9118-54d4Bd6a0c89|c5e2524a-ea46-4f67-841f-6a9465d9d515|E2A4F912-2574-4A75-9BB0-0D023378592B|F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE|InputApp|Microsoft.AAD.BrokerPlugin|Microsoft.AccountsControl|`
     Microsoft.BioEnrollment|Microsoft.CredDialogHost|Microsoft.ECApp|Microsoft.LockApp|Microsoft.MicrosoftEdgeDevToolsClient|Microsoft.MicrosoftEdge|Microsoft.PPIProjection|Microsoft.Win32WebViewHost|Microsoft.Windows.Apprep.ChxApp|`
     Microsoft.Windows.AssignedAccessLockApp|Microsoft.Windows.CapturePicker|Microsoft.Windows.CloudExperienceHost|Microsoft.Windows.ContentDeliveryManager|Microsoft.Windows.Cortana|Microsoft.Windows.NarratorQuickStart|`
     Microsoft.Windows.ParentalControls|Microsoft.Windows.PeopleExperienceHost|Microsoft.Windows.PinningConfirmationDialog|Microsoft.Windows.SecHealthUI|Microsoft.Windows.SecureAssessmentBrowser|Microsoft.Windows.ShellExperienceHost|`
     Microsoft.Windows.XGpuEjectDialog|Microsoft.XboxGameCallableUI|Windows.CBSPreview|windows.immersivecontrolpanel|Windows.PrintDialog|Microsoft.VCLibs.140.00|Microsoft.Services.Store.Engagement|Microsoft.UI.Xaml.2.0|*Nvidia*'
+    
     Get-AppxPackage -AllUsers | Where-Object {$_.Name -NotMatch $WhitelistedApps -and $_.Name -NotMatch $NonRemovable} | Remove-AppxPackage
     Get-AppxPackage | Where-Object {$_.Name -NotMatch $WhitelistedApps -and $_.Name -NotMatch $NonRemovable} | Remove-AppxPackage
     Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps -and $_.PackageName -NotMatch $NonRemovable} | Remove-AppxProvisionedPackage -Online
@@ -76,7 +78,7 @@ Function DebloatBlacklist {
         "Microsoft.Office.Todo.List"
         "Microsoft.Whiteboard"
         "Microsoft.WindowsAlarms"
-        #"Microsoft.WindowsCamera"
+        "Microsoft.WindowsCamera"
         "microsoft.windowscommunicationsapps"
         "Microsoft.WindowsFeedbackHub"
         "Microsoft.WindowsMaps"
@@ -110,14 +112,14 @@ Function DebloatBlacklist {
         "*Dolby*"
              
         #Optional: Typically not removed but you can if you need to for some reason
-        #"*Microsoft.Advertising.Xaml_10.1712.5.0_x64__8wekyb3d8bbwe*"
-        #"*Microsoft.Advertising.Xaml_10.1712.5.0_x86__8wekyb3d8bbwe*"
-        #"*Microsoft.BingWeather*"
-        #"*Microsoft.MSPaint*"
-        #"*Microsoft.MicrosoftStickyNotes*"
-        #"*Microsoft.Windows.Photos*"
-        #"*Microsoft.WindowsCalculator*"
-        #"*Microsoft.WindowsStore*"
+        "*Microsoft.Advertising.Xaml_10.1712.5.0_x64__8wekyb3d8bbwe*"
+        "*Microsoft.Advertising.Xaml_10.1712.5.0_x86__8wekyb3d8bbwe*"
+        "*Microsoft.BingWeather*"
+        "*Microsoft.MSPaint*"
+        "*Microsoft.MicrosoftStickyNotes*"
+        "*Microsoft.Windows.Photos*"
+        "*Microsoft.WindowsCalculator*"
+        "*Microsoft.WindowsStore*"
     )
     foreach ($Bloat in $Bloatware) {
         Get-AppxPackage -Name $Bloat| Remove-AppxPackage
@@ -753,11 +755,6 @@ Function Restore3dObjects {
     }
 }
 
-#Function DisableLastUsedFilesAndFolders {
-#	Write-Host = "Disable Explorer to show last used files and folders."
-#	Invoke-Item (start powershell ((Split-Path $MyInvocation.InvocationName) + "\Individual Scripts\Disable Last Used Files and Folders View.ps1"))
-#}
-
 #Interactive prompt Debloat/Revert options
 $Button = [Windows.MessageBoxButton]::YesNoCancel
 $ErrorIco = [Windows.MessageBoxImage]::Error
@@ -777,11 +774,6 @@ $Reboot = "For some of the changes to properly take effect it is recommended to 
 $OneDriveDelete = "Do you want to uninstall One Drive?"
 $Unpin = "Do you want to unpin all items from the Start menu?"
 $InstallNET = "Do you want to install .NET 3.5?"
-$LastUsedFilesFolders = "Do you want to hide last used files and folders in Explorer?"
-$LastUsedFilesFolders2 = "Do you want to show last used files and folders in Explorer?"
-$ClearLastUsedFilesFolders = "Do you want to clear last used files and folders?"
-$AeroShake = "Do you want to disable AeroShake?"
-$AeroShake2 = "Do you want to re-enable AeroShake?"
 $Prompt1 = [Windows.MessageBox]::Show($Ask, "Debloat or Revert", $Button, $ErrorIco) 
 Switch ($Prompt1) {
     #This will debloat Windows 10
@@ -802,9 +794,9 @@ Switch ($Prompt1) {
                 Remove-Keys
                 Write-Host "Leftover bloatware registry keys removed."
                 Start-Sleep 1
-                Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
-                Start-Sleep 1
-                FixWhitelistedApps
+                #Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
+                #Start-Sleep 1
+                #FixWhitelistedApps
                 Start-Sleep 1
                 Write-Host "Disabling Cortana from search, disabling feedback to Microsoft, and disabling scheduled tasks that are considered to be telemetry or unnecessary."
                 Protect-Privacy
@@ -839,9 +831,9 @@ Switch ($Prompt1) {
                 Remove-Keys
                 Write-Host "Leftover bloatware registry keys removed."
                 Start-Sleep 1
-                Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
-                Start-Sleep 1
-                FixWhitelistedApps
+                #Write-Host "Checking to see if any Whitelisted Apps were removed, and if so re-adding them."
+                #Start-Sleep 1
+                #FixWhitelistedApps
                 Start-Sleep 1
                 Write-Host "Disabling Cortana from search, disabling feedback to Microsoft, and disabling scheduled tasks that are considered to be telemetry or unnecessary."
                 Protect-Privacy
@@ -907,21 +899,9 @@ Switch ($Prompt1) {
                 Write-Host "Skipping .NET install."
             }
         }
-#		#Prompt asking if you want to deactivate Last Used Files and Folders
-#        $Prompt7 = [Windows.MessageBox]::Show($LastUsedFilesFolders, "Deactivate Last Used Files and Folders", $Button, $Warn)
-#        Switch ($Prompt7) {
-#            Yes {
-#                DisableLastUsedFilesAndFolders
-#                Write-Host "Last Used Files and Folders will no longer been shown!"
-#            }
-#            No {
-#                Write-Host "Skipping Hiding Last used Files and Folders."
-#            }
-#        }
-		
         #Prompt asking if you'd like to reboot your machine
-        $Prompt0 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
-        Switch ($Prompt0) {
+        $Prompt7 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
+        Switch ($Prompt7) {
             Yes {
                 Write-Host "Unloading the HKCR drive..."
                 Remove-PSDrive HKCR 
@@ -959,8 +939,8 @@ Switch ($Prompt1) {
             }
         }
         #Prompt asking if you'd like to reboot your machine
-        $Prompt0 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
-        Switch ($Prompt0) {
+        $Prompt7 = [Windows.MessageBox]::Show($Reboot, "Reboot", $Button, $Warn)
+        Switch ($Prompt7) {
             Yes {
                 Write-Host "Unloading the HKCR drive..."
                 Remove-PSDrive HKCR 
